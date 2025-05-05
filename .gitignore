@@ -176,4 +176,4 @@ cython_debug/
 # Custom exclusions
 
 output_test.*
-
+tests/
