@@ -1,7 +1,12 @@
-from typing import List, Dict, Union, Tuple, Optional
+from typing import List, Dict
 from pathlib import Path
 from image import check_image_integrity
 import cv2
+import logging
+import os
+import json
+
+from errors import InputError, ProcessingError
 
 def load_prompts(prompt_folder: Path) -> Dict[str, str]:
     """
@@ -58,7 +63,7 @@ def get_image_paths(input_path: Path) -> List[Path]:
     # Sort images by name to maintain sequence
     image_paths.sort()
     
-    logger.info(f"Found {len(image_paths)} images in {input_path}")
+    logging.info(f"Found {len(image_paths)} images in {input_path}")
     return image_paths
 
 
@@ -105,7 +110,7 @@ def save_results(
             img = cv2.imread(str(frame))
             cv2.imwrite(str(dest), img)
         
-        logger.info(f"Results saved to {output_dir}")
+        logging.info(f"Results saved to {output_dir}")
         
     except Exception as e:
         raise ProcessingError(f"Error saving results: {str(e)}")

@@ -23,7 +23,7 @@ from artifact import Artifact
 
 from errors import *
 from utility import load_prompts, get_image_paths, save_results
-from processing import detect_images, segment_images, frame_selection, frame_description
+from processing import detect_and_segmentation_workflow, segment_images, frame_selection, frame_description
 from reconstruction import reconstruct_image
 
 # Configure logging
@@ -120,7 +120,7 @@ def main(
         # 3. Process images with Roboflow  
         
             # 3.1 Detect images with prompts, using Florence-2 or YOLOvX
-        detection_results: List[Image] = detect_images(image_paths)
+        detection_results: List[Image] = detect_and_segmentation_workflow(image_paths)
         
         # 4. Select frames
         selected_frames = frame_selection(detection_results)

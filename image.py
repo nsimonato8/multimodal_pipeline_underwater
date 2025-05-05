@@ -10,14 +10,14 @@ import PIL
 @dataclass
 class Image:
 	path: Path
-    object_segmentation: Dict[str, str]
-    object_detection: Dict[str, str]
+	object_segmentation: Dict[str, str]
+	object_detection: Dict[str, str]
 	image: PIL.image
 	
 	
 def check_image_integrity(img: Path) -> bool:
 	try:
-		PIL.Image.load(path).verify()
+		PIL.Image.load(img).verify()
 		return True
 	except:
 		return False

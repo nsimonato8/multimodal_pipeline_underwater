@@ -3,7 +3,7 @@
 """
 
 from dataclasses import dataclass
-from typing import Dict
+from typing import List, Any
 from image import Image
 
 
@@ -11,5 +11,5 @@ from image import Image
 class Artifact:
 	images: List[Image]
 	name: str
-    best_image: Image
-    model_3d: Any
+	best_image: Image
+	model_3d: Any
