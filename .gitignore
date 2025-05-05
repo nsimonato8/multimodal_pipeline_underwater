@@ -175,5 +175,5 @@ cython_debug/
 
 # Custom exclusions
 
-output_test.json
+output_test.*
 
