@@ -7,6 +7,7 @@ import os
 import json
 
 from errors import InputError, ProcessingError
+from image import Image
 
 def load_prompts(prompt_folder: Path) -> Dict[str, str]:
     """
@@ -65,6 +66,36 @@ def get_image_paths(input_path: Path) -> List[Path]:
     
     logging.info(f"Found {len(image_paths)} images in {input_path}")
     return image_paths
+
+
+def load_frames(input_folder: Path) -> List[Image]:
+    """
+    Load frames from a directory and check their integrity.
+    
+    Args:
+        input_folder: Path to directory containing frames
+        
+    Returns:
+        List of Image objects
+        
+    Raises:
+        InputError: If directory contains no valid images
+    """
+    image_paths = get_image_paths(input_folder)
+    
+    images = []
+    for path in image_paths:
+        try:
+            img = Image(path, image=cv2.imread(str(path)))
+            if img.image is not None:
+                images.append(img)
+        except Exception as e:
+            logging.error(f"Error loading image {path}: {str(e)}")
+    
+    if not images:
+        raise InputError(f"No valid images found in {input_folder}")
+    
+    return images
 
 
 def save_results(

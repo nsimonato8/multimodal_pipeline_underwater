@@ -44,7 +44,7 @@ def preprocess_image(image: Image) -> Image:
         raise RuntimeError(f"An error occurred during image preprocessing: {e}")
     
 
-def preprocess_images_parallel(images: List[Image], preprocessing: function) -> List[Image]:
+def preprocess_images_parallel(images: List[Image], preprocessing: function=preprocess_image) -> List[Image]:
     """
     Runs the preprocess_image function in parallel using multithreading.
 

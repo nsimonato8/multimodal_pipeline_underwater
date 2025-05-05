@@ -1,21 +1,19 @@
 from typing import List
-from pathlib import Path
 from image import Image 
 from artifact import Artifact
 import os
-import PIL
 
-def detect_and_segmentation_workflow(images: List[Path]) -> List[Image]:
+def detect_and_segmentation_workflow(images: List[Image]) -> List[Image]:
     global client
     result = client.run_workflow(
         workspace_name=os.getenv('ROBOFLOW_WORKSPACE_NAME',''),
         workflow_id=os.getenv('ROBOFLOW_DETECTION_WORKFLOW_ID',''),
-        images=images,
+        images=list(map(lambda x: x.image, images)),
         parameters={}
     )
     
 
-    return list(map(lambda image_path, res: Image(path=image_path, image=PIL.open(image_path), object_detection=res), images, result))
+    return result # TODO: Add parsing logic for the workflow result
 
 
 def frame_selection(images: List[Image], prompt: str) -> List[Artifact]:
