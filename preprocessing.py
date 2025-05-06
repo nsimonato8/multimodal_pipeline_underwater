@@ -15,17 +15,10 @@ def preprocess_image(image: Image) -> Image:
         Image: Processed image with histogram equalization and radial distortion correction applied.
     """
     try:
-        # Convert to grayscale if the image is not already
-        if len(image.shape) == 3:
-            gray_image = cv2.cvtColor(image.image, cv2.COLOR_BGR2GRAY)
-        else:
-            gray_image = image.image
-
-        # Apply histogram equalization
-        equalized_image = cv2.equalizeHist(gray_image)
+        equalized_image = histogram_equalization(image)  # Apply histogram equalization
 
         # Get image dimensions
-        height, width = equalized_image.shape[:2]
+        height, width = equalized_image.image.shape[:2]
 
         # Ensure the image is large enough for cropping
         if height < 1500 or width < 1500:
@@ -34,7 +27,7 @@ def preprocess_image(image: Image) -> Image:
         # Crop to the central 1500x1500 pixels
         start_x = (width - 1500) // 2
         start_y = (height - 1500) // 2
-        cropped_image = equalized_image[start_y:start_y + 1500, start_x:start_x + 1500]
+        cropped_image = equalized_image.image[start_y:start_y + 1500, start_x:start_x + 1500]
 
         image.image = cropped_image  # Update the image attribute with the processed image
 
@@ -42,7 +35,7 @@ def preprocess_image(image: Image) -> Image:
 
     except Exception as e:
         raise RuntimeError(f"An error occurred during image preprocessing: {e}")
-    
+
 
 def preprocess_images_parallel(images: List[Image], preprocessing: function=preprocess_image) -> List[Image]:
     """
@@ -59,4 +52,18 @@ def preprocess_images_parallel(images: List[Image], preprocessing: function=prep
         results = executor.map(preprocessing, images)
 
     return list(results)
-    
+
+
+def histogram_equalization(image: Image) -> Image:
+
+    img = image.image
+
+    img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+
+    # equalize the histogram of the Y channel
+    img_yuv[:, :, 0] = cv2.equalizeHist(img_yuv[:, :, 0])
+
+    # convert the YUV image back to RGB format
+    image.image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+
+    return image
