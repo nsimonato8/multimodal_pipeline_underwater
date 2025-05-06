@@ -2,6 +2,31 @@ from typing import List
 from image import Image 
 from artifact import Artifact
 import os
+from pathlib import Path
+import subprocess
+
+
+def water_splatting(water_splatting_repo: Path, dataset_folder: Path) -> None:
+
+    config_path = water_splatting_repo / Path(
+        "outputs/unnamed/water-splatting"
+    )  # /your_timestamp/config.yml
+    config_path = (
+        config_path
+        / max(os.path.listdir(config_path), key=os.path.getmtime)
+        / "config.yml"
+    )
+
+    subprocess.run(
+        f"cd {water_splatting_repo} && \
+                     source activate water_splatting && \
+                     ns-train water-splatting --vis viewer colmap sparse --colmap-path sparse/0 --data {dataset_folder} --images-path images && \
+                     ns-render dataset --load-config {config_path} --data {water_splatting_repo}/images \
+                     source deactivate",
+        shell=True,
+    )
+    pass
+
 
 def detect_and_segmentation_workflow(images: List[Image]) -> List[Image]:
     global client
@@ -38,4 +63,3 @@ def frame_description(artifact: Artifact, prompt: str) -> Artifact:
         }
     )
     pass
-
