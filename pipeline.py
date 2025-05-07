@@ -90,11 +90,9 @@ def main(
         if is_video:
             # TODO: Define "extract_frames" inside utility module
             sample_rate
-        else:
-            image_paths = get_image_paths(input_path)
 
         # 2 Load and Pre-Process images locally
-        frames = load_frames(image_paths)
+        frames = load_frames(input_path)
         frames = preprocess_images_parallel(frames)
 
         # 3 Process images with Roboflow workflow
@@ -103,13 +101,13 @@ def main(
         segmentation_results = workflow_results[1] # TODO: Implement parsing logic from worflow_result
 
         # 4. Select frames
-        selected_frames = frame_selection(detection_results)
+        artifacts = frame_selection(detection_results)
 
         # 5. Generate frame descriptions
-        descriptions = frame_description(selected_frames, segmentation_results)
+        descriptions = frame_description(artifacts, segmentation_results)
 
         # 6. Save results
-        save_results(selected_frames, descriptions, segmentation_results, output_dir)
+        save_results(artifacts, descriptions, segmentation_results, output_dir)
 
         # 7. Reconstruction with WaterSplatting technique
         # TODO: define input arguments for "reconstruct_image"
