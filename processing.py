@@ -2,64 +2,62 @@ from typing import List
 from image import Image 
 from artifact import Artifact
 import os
-from pathlib import Path
-import subprocess
+from itertools import groupby
 
-
-def water_splatting(water_splatting_repo: Path, dataset_folder: Path) -> None:
-
-    config_path = water_splatting_repo / Path(
-        "outputs/unnamed/water-splatting"
-    )  # /your_timestamp/config.yml
-    config_path = (
-        config_path
-        / max(os.path.listdir(config_path), key=os.path.getmtime)
-        / "config.yml"
-    )
-
-    subprocess.run(
-        f"cd {water_splatting_repo} && \
-                     source activate water_splatting && \
-                     ns-train water-splatting --vis viewer colmap sparse --colmap-path sparse/0 --data {dataset_folder} --images-path images && \
-                     ns-render dataset --load-config {config_path} --data {water_splatting_repo}/images \
-                     source deactivate",
-        shell=True,
-    )
-    pass
-
-
-def detect_and_segmentation_workflow(images: List[Image]) -> List[Image]:
+def detect_and_segmentation_workflow(images: List[Image], prompt: str) -> List[Image]:
     global client
     result = client.run_workflow(
         workspace_name=os.getenv('ROBOFLOW_WORKSPACE_NAME',''),
         workflow_id=os.getenv('ROBOFLOW_DETECTION_WORKFLOW_ID',''),
         images=list(map(lambda x: x.image, images)),
-        parameters={}
+        parameters={
+            'prompt': prompt # TODO: check if this is correct
+        }
     )
-    
+    # TODO: Add parsing logic for the workflow result
+    return result 
 
-    return result # TODO: Add parsing logic for the workflow result
 
+def frame_selection(images: List[Image]) -> List[Artifact]:
+    # Step 1: Select the bounding box with maximum area and return its predicted label
+    for image in images:
+        if not hasattr(image, 'object_detection') or not image.object_detection:
+            continue
+        max_bbox = max(
+            image.object_detection,
+            key=lambda bbox: (bbox['xmax'] - bbox['xmin']) * (bbox['ymax'] - bbox['ymin']),
+            default=''
+        )
+        image.artifact_label = max_bbox['label']
 
-def frame_selection(images: List[Image], prompt: str) -> List[Artifact]:
-    """
-        TODO: Define output type.
-    """
-    global client
-    
-    pass
+    # Step 2: Group the images by the labels selected in the previous step
+    grouped_images = groupby(
+        images, key=lambda img: getattr(img, "artifact_label", None)
+    )
+
+    # Step 3: Group together the images with the same label and return a list of artifacts
+    artifacts = []
+    for label, group in grouped_images:
+        if label is not None:
+            artifact = Artifact(label=label, images=list(group))
+            artifacts.append(artifact)
+
+    return artifacts
+
 
 def frame_description(artifact: Artifact, prompt: str) -> Artifact:
     """
         TODO: define input and complete implementation.
     """
     global client
+
     result = client.run_workflow(
         workspace_name=os.getenv('ROBOFLOW_WORKSPACE_NAME',''),
         workflow_id=os.getenv('ROBOFLOW_DESCRIPTION_WORKFLOW_ID',''),
-        images=images,
+        images=artifact.images,
         parameters={
-            prompt: prompt
+            'prompt': prompt
         }
     )
-    pass
+
+    return result
