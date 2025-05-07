@@ -5,19 +5,19 @@
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict
-import PIL
+import numpy as np
+import cv2
 
 @dataclass
 class Image:
 	path: Path
 	object_segmentation: Dict[str, str]
 	object_detection: Dict[str, str]
-	image: PIL.image
-	
-	
+	image: np.ndarray
+
+
 def check_image_integrity(img: Path) -> bool:
-	try:
-		PIL.Image.load(img).verify()
-		return True
-	except:
-		return False
+    try:
+        return cv2.imread(img) is not None
+    except:
+        return False
