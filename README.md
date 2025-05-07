@@ -1,4 +1,18 @@
-# multimodal_pipeline_underwater
+# Multimodal Pipeline Underwater
+[![Paper](https://img.shields.io/badge/CS-Paper-b31b1b?logo=arxiv&logoColor=red)](https://arxiv.org/abs/2406.03207) <br>
+[![Paper](https://img.shields.io/badge/REDAI-Project-yellow)]()[![Paper](https://img.shields.io/badge/version-1.0-blue)]() <br>
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/identification-of-stone-deterioration/image-classification-on-id-pattern-dataset)](https://paperswithcode.com/)
+
+ [Niccoló Simonato]() & [Corradetti Daniele](https://ualg.academia.edu/DanieleCorradetti) & [José António Bettencourt]()  <br><br>
+*Università degli studi di Udine, Dipartimento di Scienze Matematiche, Informatiche e Fisiche (DMIF)* <br>
+*Elementar s.r.l., Divisione Ricerca e Sviluppo, Galleria Enzo Tortora 21, 10121 Torino, Italy*<br>
+*STAP Reabilitação Estrutural, SA Rua General Ferreira Martins 8 - 9B,  Algés, 1495-137, Portugal*<br>
+*Grupo de Fisica Matematica, Instituto Superior Tecnico, Av. Rovisco Pais, Lisboa, 1049-001, Portugal* <br>
+
+
+
+## Overview
 
 In this paper we present a comprehensive pipeline for the three-dimensional detection and reconstruction of archaeological artifacts in underwater environments.
 Our approach takes advantage of Large Multimodal Models (LMMs), which allow the integration of historical, geographic, and contextual data into the acquired images, thus aiding in the identification and interpretation of objects of possible archaeological interest.
