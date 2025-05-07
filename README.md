@@ -1,8 +1,6 @@
 # Multimodal Pipeline Underwater
 [![Paper](https://img.shields.io/badge/CS-Paper-b31b1b?logo=arxiv&logoColor=red)](https://arxiv.org/abs/2406.03207) <br>
-[![Paper](https://img.shields.io/badge/REDAI-Project-yellow)]()[![Paper](https://img.shields.io/badge/version-1.0-blue)]() <br>
-	
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/identification-of-stone-deterioration/image-classification-on-id-pattern-dataset)](https://paperswithcode.com/)
+[![Paper](https://img.shields.io/badge/3DGS-Underwater-blue)]()[![Paper](https://img.shields.io/badge/version-1.0-yellow)]() <br>
 
  [Niccoló Simonato]() & [Corradetti Daniele](https://ualg.academia.edu/DanieleCorradetti) & [José António Bettencourt]()  <br><br>
 *Università degli studi di Udine, Dipartimento di Scienze Matematiche, Informatiche e Fisiche (DMIF)* <br>
