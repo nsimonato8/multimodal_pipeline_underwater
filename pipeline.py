@@ -17,50 +17,61 @@ from inference_sdk import InferenceHTTPClient
 
 from image import Image
 from errors import *
-from utility import load_prompts, get_image_paths, save_results, load_frames
+from utility import (
+    load_prompts,
+    get_image_paths,
+    save_results,
+    load_frames,
+    extract_frames_from_video,
+)
 from preprocessing import preprocess_images_parallel
-from processing import detect_and_segmentation_workflow, segment_images, frame_selection, frame_description
+from processing import (
+    detect_and_segmentation_workflow,
+    segment_images,
+    frame_selection,
+    frame_description,
+)
 from reconstruction import reconstruct_image
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger('multimodal_pipeline')
+logger = logging.getLogger("multimodal_pipeline")
+
 
 @click.command()
 @click.option(
-    "--input", 
+    "--input",
     "input_path",
     required=True,
     type=click.Path(exists=True),
-    help="Path to input video file or directory of image frames"
+    help="Path to input video file or directory of image frames",
 )
 @click.option(
-    "--prompt-dir", 
+    "--prompt-dir",
     "prompt_dir",
     required=True,
     type=click.Path(exists=True),
-    help="Path to directory containing prompt text files"
+    help="Path to directory containing prompt text files",
 )
 @click.option(
-    "--output-dir", 
+    "--output-dir",
     "output_dir",
     required=True,
     type=click.Path(),
-    help="Path to output directory for results"
+    help="Path to output directory for results",
 )
 @click.option(
     "--is-video/",
     default=True,
-    help="Specify if input is a video file or a directory of frames"
+    help="Specify if input is a video file or a directory of frames",
 )
 @click.option(
     "--sample-rate",
     default=1,
     type=int,
-    help="If input is video, extract every nth frame"
+    help="If input is video, extract every nth frame",
 )
 def main(
     input_path: str,
@@ -69,12 +80,12 @@ def main(
     is_video: bool,
     sample_rate: int,
 ) -> None:
-    load_dotenv()    
+    load_dotenv()
     try:
         global client
         client = InferenceHTTPClient(
             api_url="https://detect.roboflow.com",
-            api_key=os.getenv('ROBOFLOW_API_KEY', ''),
+            api_key=os.getenv("ROBOFLOW_API_KEY", ""),
         )
         input_path = Path(input_path)
         prompt_dir = Path(prompt_dir)
@@ -88,8 +99,7 @@ def main(
 
         # 2. Get image paths
         if is_video:
-            # TODO: Define "extract_frames" inside utility module
-            sample_rate
+            extract_frames_from_video(input_path, output_dir, sample_rate)
 
         # 2 Load and Pre-Process images locally
         frames = load_frames(input_path)
@@ -97,8 +107,12 @@ def main(
 
         # 3 Process images with Roboflow workflow
         workflow_results: List[Image] = detect_and_segmentation_workflow(frames)
-        detection_results = workflow_results[0] # TODO: Implement parsing logic from worflow_result
-        segmentation_results = workflow_results[1] # TODO: Implement parsing logic from worflow_result
+        detection_results = workflow_results[
+            0
+        ]  # TODO: Implement parsing logic from worflow_result
+        segmentation_results = workflow_results[
+            1
+        ]  # TODO: Implement parsing logic from worflow_result
 
         # 4. Select frames
         artifacts = frame_selection(detection_results)
@@ -121,6 +135,7 @@ def main(
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

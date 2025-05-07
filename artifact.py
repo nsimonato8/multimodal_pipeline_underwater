@@ -9,7 +9,7 @@ from image import Image
 
 @dataclass
 class Artifact:
-	images: List[Image]
-	name: str
-	best_image: Image
-	model_3d: Any
+    images: List[Image]
+    name: str
+    best_image: Image
+    model_3d: Any

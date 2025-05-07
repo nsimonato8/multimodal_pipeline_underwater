@@ -8,12 +8,13 @@ from typing import Dict
 import numpy as np
 import cv2
 
+
 @dataclass
 class Image:
-	path: Path
-	object_segmentation: Dict[str, str]
-	object_detection: Dict[str, str]
-	image: np.ndarray
+    path: Path
+    object_segmentation: Dict[str, str]
+    object_detection: Dict[str, str]
+    image: np.ndarray
 
 
 def check_image_integrity(img: Path) -> bool:
