@@ -4,7 +4,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Any
 import numpy as np
 import cv2
 
@@ -15,6 +15,10 @@ class Image:
     object_segmentation: Dict[str, str]
     object_detection: Dict[str, str]
     image: np.ndarray
+
+    @staticmethod
+    def from_workflow_result(workflow_result: List[Dict[str, Any]]) -> Image:
+        raise NotImplementedError("from_workflow_result is not implemented yet")
 
 
 def check_image_integrity(img: Path) -> bool:

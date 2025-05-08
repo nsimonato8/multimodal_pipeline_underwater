@@ -1,0 +1,9 @@
+Categoria oggetti: ancore
+
+Direttive:
+- Analizza l’immagine del relitto situato sul fondale marino.  
+- Identifica e localizza tutte le ancore visibili associate al relitto.  
+- Considera sia ancore intere che frammenti riconoscibili.  
+- Segnala la presenza di ancore in prossimità della struttura principale o nelle immediate vicinanze.  
+- Escludi oggetti che non presentano caratteristiche tipiche delle ancore, come forma, fori o elementi di fissaggio.  
+- Evidenzia le ancore anche se parzialmente sepolte o coperte da sedimenti.  

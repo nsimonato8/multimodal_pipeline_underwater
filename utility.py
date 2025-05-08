@@ -35,7 +35,7 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         for file in prompt_files[:3]:  # Take first 3 prompt files
             with open(file, "r", encoding="utf-8") as f:
                 prompts[file.stem] = f.read().strip()
-
+        # TODO: Add prompt handling logic. There are three prompts that are defined, but they can be merged depending on the purpose.
         return prompts
     except Exception as e:
         raise InputError(f"Error loading prompt files: {str(e)}")
