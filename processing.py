@@ -56,7 +56,8 @@ def frame_selection(images: List[Image]) -> List[Artifact]:
     return artifacts
 
 
-def frame_description(artifact: Artifact, prompt: str) -> Artifact:
+def generate_frame_description(artifact: Artifact, prompt: str) -> Artifact:
+    # This function adds the caption to the Artifact object.
     # TODO: define input and complete implementation.
     global client
 
