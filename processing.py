@@ -11,7 +11,7 @@ def detect_and_segmentation_workflow(images: List[Image], prompt: str) -> List[I
         workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
         workflow_id=os.getenv("ROBOFLOW_DETECTION_WORKFLOW_ID", ""),
         images=list(map(lambda x: x.image, images)),
-        parameters={"prompt": prompt},  # TODO: check if this is correct
+        parameters={"detection_prompt": prompt},
     )
     # TODO: Add parsing logic for the workflow result
     return result
