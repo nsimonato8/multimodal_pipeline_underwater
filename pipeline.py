@@ -94,7 +94,7 @@ def main(
         logger.info("Starting image processing pipeline")
 
         # 1. Load prompts
-        prompts = load_prompts(prompt_dir)
+        prompts: dict = load_prompts(prompt_dir)
         logger.info(f"Loaded {len(prompts)} prompts")
 
         # 2. Get image paths
@@ -106,26 +106,19 @@ def main(
         frames = preprocess_images_parallel(frames)
 
         # 3 Process images with Roboflow workflow
-        workflow_results: List[Image] = detect_and_segmentation_workflow(frames)
-        detection_results = workflow_results[
-            0
-        ]  # TODO: Implement parsing logic from worflow_result
-        segmentation_results = workflow_results[
-            1
-        ]  # TODO: Implement parsing logic from worflow_result
+        workflow_results: List[Image] = detect_and_segmentation_workflow(frames, prompts.get("DETECTION_PROMPT", ""))
 
         # 4. Select frames
-        artifacts = frame_selection(detection_results)
+        artifacts = frame_selection(workflow_results)
 
         # 5. Generate frame descriptions
-        descriptions = frame_description(artifacts, segmentation_results)
+        artifacts = generate_frame_description(artifacts)
 
         # 6. Save results
-        save_results(artifacts, descriptions, segmentation_results, output_dir)
+        save_results(artifacts, output_dir) # TODO: Change save_results according to the new updates.
 
         # 7. Reconstruction with WaterSplatting technique
-        # TODO: define input arguments for "reconstruct_image"
-        # TODO: implement "reconstruct_image" with os.system calls
+        # TODO: define input arguments for "reconstruct_image" (this will be implemented in new versions, for now it's performed manually).
 
         logger.info("Pipeline completed.")
 
