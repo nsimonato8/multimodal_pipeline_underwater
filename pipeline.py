@@ -14,7 +14,6 @@ from typing import List
 from pathlib import Path
 from dotenv import load_dotenv
 from inference_sdk import InferenceHTTPClient
-import numpy as np
 
 from image import Image
 from errors import *
@@ -103,8 +102,8 @@ def main(
             extract_frames_from_video(input_path, output_dir, sample_rate)
 
         # 2 Load and Pre-Process images locally
-        frames: List[np.ndarray] = load_frames(input_path)
-        frames: List[np.ndarray] = preprocess_images_parallel(frames)
+        frames: List[Image] = load_frames(input_path)
+        frames: List[Image] = preprocess_images_parallel(frames)
 
         # 3 Process images with Roboflow workflow
         workflow_results: List[Image] = detect_and_segmentation_workflow(frames, prompts.get("DETECTION_PROMPT", ""))
