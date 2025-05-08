@@ -17,7 +17,7 @@ class Image:
     image: np.ndarray
 
     @staticmethod
-    def from_workflow_result(result: Dict[str, Any], image: Image) -> Image:
+    def from_workflow_result(result: Dict[str, Any], image: np.ndarray) -> Image:
         def parse_detection_results(result: Dict[str, Any]) -> Dict[str, Any]:
             return result.get("model",{}).get("parsed_output",{})    
 
