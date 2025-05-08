@@ -1,9 +1,10 @@
-from typing import List
+from typing import List, Dict, Any, Optional 
 from image import Image
 from artifact import Artifact
 import os
 from itertools import groupby
 import supervision as sv
+import numpy as np
 
 def get_largest_bbox_label(workflow_result: Dict[str, Any]) -> Optional[str]:
     # TODO: Check parsing logic
