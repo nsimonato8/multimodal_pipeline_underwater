@@ -48,16 +48,16 @@ def frame_selection(images: List[Image]) -> List[Artifact]:
     return [Artifact(label=label, images=list(group)) for label, group in grouped_images if label is not None]
 
 
-def generate_frame_description(artifact: Artifact, prompt: str) -> Artifact:
+def generate_frame_description(artifact: Artifact) -> Artifact:
     # This function adds the caption to the Artifact object.
-    # TODO: define input and complete implementation.
+    def parse_caption(result: Dict[str, Any]) -> str:
+        return result.get("model",{}).get("raw_output", "")
+        
     global client
-
     result = client.run_workflow(
         workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
         workflow_id=os.getenv("ROBOFLOW_DESCRIPTION_WORKFLOW_ID", ""),
         images=artifact.images,
-        parameters={"prompt": prompt},
     )
-
-    return result
+    artifact.caption = parse_caption(result)
+    return artifact
