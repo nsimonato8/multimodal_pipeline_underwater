@@ -57,7 +57,7 @@ def generate_frame_description(artifact: Artifact) -> Artifact:
     result = client.run_workflow(
         workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
         workflow_id=os.getenv("ROBOFLOW_DESCRIPTION_WORKFLOW_ID", ""),
-        images=artifact.images,
+        images=artifact.images, # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
     )
     artifact.caption = parse_caption(result)
     return artifact
