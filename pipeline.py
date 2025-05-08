@@ -84,7 +84,7 @@ def main(
     try:
         global client
         client = InferenceHTTPClient(
-            api_url="https://detect.roboflow.com",
+            api_url=os.getenv("ROBOFLOW_API_URL", "http://localhost:9001"),
             api_key=os.getenv("ROBOFLOW_API_KEY", ""),
         )
         input_path = Path(input_path)
