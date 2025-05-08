@@ -37,6 +37,24 @@ The execution of the pipeline requires three `.txt` files, containing the prompt
 * `GeographicalEnvironment.txt`, which contains information about the geographical environment of the archeological site.
 * `Artifacts.txt`, which contains directives for the models about the artifacts to look for.
 
+### Environment variables
+
+The pipeline uses two Roboflow's Workflows for the tasks of Prompted Object Detection, Image Segmentation and Visual Captioning. For this application to work, you'll need Roboflow's API key (you can get it even with a free account) and the IDs of the workflows.    
+The easiest way to do this is to define a `.env` file like the following:
+```
+ROBOFLOW_API_URL='' # If you leave this empty, it will be assumed that this is a local deployment.  
+ROBOFLOW_API_KEY='YOUR_API_KEY'
+ROBOFLOW_WORKSPACE_NAME='' # TODO: Provide this data 
+ROBOFLOW_DETECTION_WORKFLOW_ID=''
+ROBOFLOW_DESCRIPTION_WORKFLOW_ID=''
+``` 
+
+It is advised to deploy the pipeline on a local environment, as the tests were performed is similar circumstances.   
+Before starting the deployment, run:
+```
+pip install inference && inference server start
+``` 
+
 ### Execution
 
 If the processing is performed on a sequence of images, run:
