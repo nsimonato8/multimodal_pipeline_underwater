@@ -5,17 +5,15 @@ import os
 from itertools import groupby
 import supervision as sv
 
-def get_largest_bbox_label(workflow_result: Dict[str, Any]) -> Optional[str]:
-    # TODO: Check parsing logic
+def get_largest_bbox_label(predictions: Dict[str, Any]) -> Optional[str]:
     try:
-        predictions = workflow_result["predictions"][0]
-        boxes = np.array(predictions["boxes"])
+        bboxes = np.array(predictions["bboxes"])
         labels = predictions["labels"]
        
-        if len(boxes) == 0:
+        if len(bboxes) == 0:
             return None
        
-        areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])
+        areas = (bboxes[:, 2] - bboxes[:, 0]) * (bboxes[:, 3] - bboxes[:, 1])
         return labels[np.argmax(areas)]
        
     except (KeyError, IndexError):
