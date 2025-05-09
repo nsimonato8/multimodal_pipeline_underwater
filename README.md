@@ -1,8 +1,8 @@
 # Multimodal Pipeline Underwater
 [![Paper](https://img.shields.io/badge/CS-Paper-b31b1b?logo=arxiv&logoColor=red)](https://arxiv.org/abs/2406.03207) <br>
-[![Paper](https://img.shields.io/badge/3DGS-Underwater-blue)]()[![Paper](https://img.shields.io/badge/version-1.0-yellow)]() <br>
+[![Paper](https://img.shields.io/badge/3DGS-Underwater-blue)]()[![Paper](https://img.shields.io/badge/version-0.1-yellow)]() <br>
 
- [Niccoló Simonato]() & [Corradetti Daniele](https://ualg.academia.edu/DanieleCorradetti) & [José António Bettencourt]()  <br><br>
+ [Niccoló Simonato](), [Corradetti Daniele](https://ualg.academia.edu/DanieleCorradetti) & [José António Bettencourt]()  <br><br>
 *Università degli studi di Udine, Dipartimento di Scienze Matematiche, Informatiche e Fisiche (DMIF)* <br>
 *Elementar s.r.l., Divisione Ricerca e Sviluppo, Galleria Enzo Tortora 21, 10121 Torino, Italy*<br>
 *STAP Reabilitação Estrutural, SA Rua General Ferreira Martins 8 - 9B,  Algés, 1495-137, Portugal*<br>
@@ -14,8 +14,7 @@
 
 In this paper we present a comprehensive pipeline for the three-dimensional detection and reconstruction of archaeological artifacts in underwater environments.
 Our approach takes advantage of Large Multimodal Models (LMMs), which allow the integration of historical, geographic, and contextual data into the acquired images, thus aiding in the identification and interpretation of objects of possible archaeological interest.
-In addition to multi-modal integration, our pipeline also supports the use of a 3D visualization method (Gaussian Splatting) that has never before been applied to underwater archaeology, but which in many ways is a natural candidate to replace the technical problems of underwater photogrammetry.
-To demonstrate the effectiveness of the method, we concretized a version of this pipeline and applied it to the investigation of the wreck of the steamship SS Main (1892), located in Porto Pim Bay, Faial Island, Azores.
+In addition to multi-modal integration, our pipeline also supports the use of a 3D visualization method (Gaussian Splatting) that has never before been applied to underwater archaeology, but which in many ways is a natural candidate to replace the technical problems of underwater photogrammetry. To demonstrate the effectiveness of the method, we concretized a version of this pipeline and applied it to the investigation of the wreck of the steamship SS Main (1892), located in Porto Pim Bay, Faial Island, Azores.
 
 ## Installation
 
@@ -75,3 +74,5 @@ pipeline --input_path /path/to/the/video/file \
 --is-video \
 --sample-rate sample_rate
 ```
+
+
