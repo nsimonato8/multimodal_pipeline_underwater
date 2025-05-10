@@ -13,6 +13,7 @@ import logging
 from typing import List
 from pathlib import Path
 from dotenv import load_dotenv
+import cv2
 from inference_sdk import InferenceHTTPClient
 
 from image import Image
@@ -31,6 +32,7 @@ from processing import (
     generate_frame_description,
 )
 from reconstruction import reconstruct_image
+
 
 # Configure logging
 logging.basicConfig(
@@ -130,4 +132,5 @@ def main(
 
 
 if __name__ == "__main__":
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     main()
