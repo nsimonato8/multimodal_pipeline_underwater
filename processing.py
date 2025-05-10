@@ -6,17 +6,15 @@ from itertools import groupby
 import supervision as sv
 import numpy as np
 
-def get_largest_bbox_label(workflow_result: Dict[str, Any]) -> Optional[str]:
-    # TODO: Check parsing logic
+def get_largest_bbox_label(predictions: Dict[str, Any]) -> Optional[str]:
     try:
-        predictions = workflow_result["predictions"][0]
-        boxes = np.array(predictions["boxes"])
+        bboxes = np.array(predictions["bboxes"])
         labels = predictions["labels"]
        
-        if len(boxes) == 0:
+        if len(bboxes) == 0:
             return None
        
-        areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])
+        areas = (bboxes[:, 2] - bboxes[:, 0]) * (bboxes[:, 3] - bboxes[:, 1])
         return labels[np.argmax(areas)]
        
     except (KeyError, IndexError):
@@ -25,14 +23,14 @@ def get_largest_bbox_label(workflow_result: Dict[str, Any]) -> Optional[str]:
 
 def detect_and_segmentation_workflow(images: List[Image], prompt: str) -> List[Image]:
     global client
-    result = client.run_workflow(
+    results = client.run_workflow(
         workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
         workflow_id=os.getenv("ROBOFLOW_DETECTION_WORKFLOW_ID", ""),
         images=list(map(lambda x: x.image, images)),
         parameters={"detection_prompt": prompt}
         )
     
-    return list(map(Image.from_workflow_result, result)) # TODO: Implement parsing logic inside the Image class with a static method.
+    return list(map(lambda res, img: Image.from_workflow_result(res, img), results, images))
 
 
 def frame_selection(images: List[Image]) -> List[Artifact]:
@@ -48,25 +46,19 @@ def frame_selection(images: List[Image]) -> List[Artifact]:
     )
 
     # Step 3: Group together the images with the same label and return a list of artifacts
-    artifacts = []
-    for label, group in grouped_images:
-        if label is not None:
-            artifact = Artifact(label=label, images=list(group))
-            artifacts.append(artifact)
-
-    return artifacts
+    return [Artifact(label=label, images=list(group)) for label, group in grouped_images if label is not None]
 
 
-def generate_frame_description(artifact: Artifact, prompt: str) -> Artifact:
+def generate_frame_description(artifact: Artifact) -> Artifact:
     # This function adds the caption to the Artifact object.
-    # TODO: define input and complete implementation.
+    def parse_caption(result: Dict[str, Any]) -> str:
+        return result.get("model",{}).get("raw_output", "")
+        
     global client
-
     result = client.run_workflow(
         workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
         workflow_id=os.getenv("ROBOFLOW_DESCRIPTION_WORKFLOW_ID", ""),
-        images=artifact.images,
-        parameters={"prompt": prompt},
+        images=artifact.images, # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
     )
-
-    return result
+    artifact.caption = parse_caption(result)
+    return artifact

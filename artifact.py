@@ -12,4 +12,5 @@ class Artifact:
     images: List[Image]
     name: str
     best_image: Image
+    caption: str
     model_3d: Any

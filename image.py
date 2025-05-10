@@ -17,8 +17,16 @@ class Image:
     image: np.ndarray
 
     @staticmethod
-    def from_workflow_result(workflow_result: List[Dict[str, Any]]) -> Image:
-        raise NotImplementedError("from_workflow_result is not implemented yet")
+    def from_workflow_result(result: Dict[str, Any], image: np.ndarray) -> Image:
+        def parse_detection_results(result: Dict[str, Any]) -> Dict[str, Any]:
+            return result.get("model",{}).get("parsed_output",{})    
+
+        def parse_segmentation_results(result: Dict[str, Any]) -> Dict[str, Any]:   
+            return result.get("model_1",{})
+
+        return Image(image=image,
+                    object_detection=parse_detection_results(result),
+                    object_segmentation=parse_segmentation_results(result))
 
 
 def check_image_integrity(img: Path) -> bool:
