@@ -1,6 +1,6 @@
 import cv2
 from concurrent.futures import ThreadPoolExecutor
-from typing import List
+from typing import List, Callable
 from image import Image
 from preprocessing2 import simple_underwater_correction
 from deprecated import deprecated
@@ -66,7 +66,7 @@ def preprocess_image(image: Image) -> Image:
 
 
 def preprocess_images_parallel(
-    images: List[Image], preprocessing: function = _preprocess_image
+    images: List[Image], preprocessing: Callable = _preprocess_image
 ) -> List[Image]:
     """
     Runs the preprocess_image function in parallel using multithreading.
