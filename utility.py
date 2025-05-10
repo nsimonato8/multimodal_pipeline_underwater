@@ -63,7 +63,7 @@ def load_frames(input_folder: Path) -> List[Image]:
     images = []
     for path in image_paths:
         try:
-            img = Image(path, image=cv2.imread(str(path)))
+            img = Image(path=path, image=cv2.imread(str(path)))
             if img.image is not None:
                 images.append(img)
         except Exception as e:
