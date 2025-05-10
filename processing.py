@@ -46,7 +46,7 @@ def frame_selection(images: List[Image]) -> List[Artifact]:
     )
 
     # Step 3: Group together the images with the same label and return a list of artifacts
-    return [Artifact(label=label, images=list(group)) for label, group in grouped_images if label is not None]
+    return [Artifact(name=label, images=list(group)) for label, group in grouped_images if label is not None]
 
 
 def generate_frame_description(artifact: Artifact) -> Artifact:
