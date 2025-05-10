@@ -11,49 +11,33 @@ from image import Image
 
 
 def load_prompts(prompt_folder: Path) -> Dict[str, str]:
-    """
-    Load prompts from .txt files in the given folder.
+    prompt_files = ['Artifacts.txt', 'Historical.txt', 'GeographicalEnvironment.txt']
 
-    Args:
-        prompt_folder: Path to folder containing prompt files
-
-    Returns:
-        Dictionary mapping prompt names to their content
-
-    Raises:
-        InputError: If prompt files cannot be found or read
-    """
-    prompt_files = list(prompt_folder.glob("*.txt"))
-
-    if len(prompt_files) < 3:
+    if not all(list(map(lambda x: os.path.exists(prompt_folder / x), prompt_files))):
         raise InputError(
-            f"Expected 3 prompt files in {prompt_folder}, found {len(prompt_files)}"
+            f"Expected 3 prompt files in {prompt_folder}."
         )
 
-    prompts = {}
     try:
-        for file in prompt_files[:3]:  # Take first 3 prompt files
-            with open(file, "r", encoding="utf-8") as f:
-                prompts[file.stem] = f.read().strip()
-        # TODO: Add prompt handling logic. There are three prompts that are defined, but they can be merged depending on the purpose.
-        return prompts
+        prompts = []
+        for file in prompt_files:  # Take first 3 prompt files
+            with open(prompt_folder / file, "r", encoding="utf-8") as f:
+                prompts.append(f.read().strip())
+
+        DETECTION_PROMPT = '\n'.join(prompts)
+
+        with open(prompt_folder / "ClassificationSchema.txt", "r", encoding="utf-8") as f:
+            classification_schema = f.read().strip()
+
+        return {
+            "DETECTION_PROMPT": DETECTION_PROMPT,
+            "CLASSIFICATION_PROMPT": classification_schema,
+        }
     except Exception as e:
         raise InputError(f"Error loading prompt files: {str(e)}")
 
 
 def get_image_paths(input_path: Path) -> List[Path]:
-    """
-    Get image paths from a directory.
-
-    Args:
-        input_path: Path to directory containing images
-
-    Returns:
-        List of paths to images
-
-    Raises:
-        InputError: If directory contains no images
-    """
     image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".tiff"}
     image_paths = [
         p
@@ -74,18 +58,6 @@ def get_image_paths(input_path: Path) -> List[Path]:
 
 
 def load_frames(input_folder: Path) -> List[Image]:
-    """
-    Load frames from a directory and check their integrity.
-
-    Args:
-        input_folder: Path to directory containing frames
-
-    Returns:
-        List of Image objects
-
-    Raises:
-        InputError: If directory contains no valid images
-    """
     image_paths = get_image_paths(input_folder)
 
     images = []
@@ -109,18 +81,6 @@ def save_results(
     segmentation_results: Dict[str, Dict],
     output_dir: Path,
 ) -> None:
-    """
-    Save processing results to output directory.
-
-    Args:
-        selected_frames: List of paths to selected frames
-        descriptions: Dictionary mapping frame paths to their descriptions
-        segmentation_results: Dictionary mapping image paths to their segmentation results
-        output_dir: Directory to save results
-
-    Raises:
-        ProcessingError: If results cannot be saved
-    """
     try:
         output_dir.mkdir(exist_ok=True, parents=True)
 
@@ -160,18 +120,6 @@ def save_results(
 def extract_frames_from_video(
     video_path: Path, output_folder: Path, sample_rate: int
 ) -> None:
-    """
-    Extract frames from a video file and save them as images.
-
-    Args:
-        video_path: Path to the video file.
-        output_folder: Directory to save extracted frames.
-        sample_rate: Interval for frame extraction (e.g., every nth frame).
-
-    Raises:
-        InputError: If the video file cannot be read.
-        ProcessingError: If frames cannot be saved.
-    """
     try:
         # Ensure output folder exists
         output_folder.mkdir(parents=True, exist_ok=True)
