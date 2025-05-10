@@ -16,10 +16,10 @@ from dotenv import load_dotenv
 from inference_sdk import InferenceHTTPClient
 
 from image import Image
+from artifact import Artifact
 from errors import *
 from utility import (
     load_prompts,
-    get_image_paths,
     save_results,
     load_frames,
     extract_frames_from_video,
@@ -27,9 +27,8 @@ from utility import (
 from preprocessing import preprocess_images_parallel
 from processing import (
     detect_and_segmentation_workflow,
-    segment_images,
     frame_selection,
-    frame_description,
+    generate_frame_description,
 )
 from reconstruction import reconstruct_image
 
