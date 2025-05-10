@@ -3,7 +3,7 @@
 """
 
 from dataclasses import dataclass
-from typing import List, Any
+from typing import List, Any, Optional
 from image import Image
 
 
@@ -11,6 +11,17 @@ from image import Image
 class Artifact:
     images: List[Image]
     name: str
-    best_image: Image
-    caption: str
-    model_3d: Any
+    best_image: Optional[Image] = None
+    caption: Optional[str] = None
+    model_3d: Optional[Any] = None
+
+    def __post_init__(self):
+        self.best_image = Artifact.select_best_image(self.images)
+
+    @staticmethod
+    def select_best_image(images: List[Image]) -> Optional[Image]:
+        # TODO: Implement a better selection algorithm for the best image
+        if images:
+            return images[0]
+
+        return None
