@@ -43,9 +43,9 @@ The easiest way to do this is to define a `.env` file like the following:
 ```
 ROBOFLOW_API_URL='' # If you leave this empty, it will be assumed that this is a local deployment.  
 ROBOFLOW_API_KEY='YOUR_API_KEY'
-ROBOFLOW_WORKSPACE_NAME='' # TODO: Provide this data 
-ROBOFLOW_DETECTION_WORKFLOW_ID=''
-ROBOFLOW_DESCRIPTION_WORKFLOW_ID=''
+ROBOFLOW_WORKSPACE_NAME='tesimastertest' # TODO: Provide this data 
+ROBOFLOW_DETECTION_WORKFLOW_ID='underwateranalysis'
+ROBOFLOW_DESCRIPTION_WORKFLOW_ID='underwater-captioning'
 ``` 
 
 It is advised to deploy the pipeline on a local environment, as the tests were performed is similar circumstances.   
