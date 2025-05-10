@@ -64,6 +64,7 @@ def white_balance(img):
 
 def improve_contrast(img):
     """Migliora il contrasto dell'immagine."""
+    global clahe
     # Converti in HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
@@ -118,13 +119,13 @@ def process_images(input_dir, output_dir):
             print(f"Errore nell'elaborazione dell'immagine {img_path}: {e}")
 
 
-if __name__ == "__main__":
-    # Definisci i percorsi di input e output
+# if __name__ == "__main__":
+#     # Definisci i percorsi di input e output
 
-    # Inizializza CLAHE come variabile globale per riutilizzo
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+#     # Inizializza CLAHE come variabile globale per riutilizzo
+#     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
 
-    # Processa le immagini
-    process_images(input_directory, output_directory)
+#     # Processa le immagini
+#     process_images(input_directory, output_directory)
 
-    print("Elaborazione completata!")
+#     print("Elaborazione completata!")
