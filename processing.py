@@ -85,7 +85,7 @@ def generate_frame_description(
         base64_image = base64.b64encode(buffer).decode("utf-8")
 
         response = client.responses.create(
-            model="gpt-4.1",
+            model="gpt-4.1-nano",
             input=[
                 {
                     "role": "user",
