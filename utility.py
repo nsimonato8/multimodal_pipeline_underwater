@@ -4,7 +4,6 @@ from tqdm import tqdm
 import cv2
 import logging
 import os
-import json
 import tqdm
 
 from errors import InputError, ProcessingError
@@ -13,12 +12,15 @@ from artifact import Artifact
 
 
 def load_prompts(prompt_folder: Path) -> Dict[str, str]:
-    prompt_files = ['Artifacts.txt', 'Historical.txt', 'GeographicalEnvironment.txt']
+    prompt_files = [
+        "Artifacts.txt",
+        "Historical.txt",
+        "GeographicalEnvironment.txt",
+        "ClassificationSchema.txt",
+    ]
 
     if not all(list(map(lambda x: os.path.exists(prompt_folder / x), prompt_files))):
-        raise InputError(
-            f"Expected 3 prompt files in {prompt_folder}."
-        )
+        raise InputError(f"Expected 3 prompt files in {prompt_folder}.")
 
     try:
         prompts = []
@@ -26,14 +28,18 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
             with open(prompt_folder / file, "r", encoding="utf-8") as f:
                 prompts.append(f.read().strip())
 
-        DETECTION_PROMPT = '\n'.join(prompts)
+        prompts = {name: prompt for name, prompt in zip(prompt_files, prompts)}
 
-        with open(prompt_folder / "ClassificationSchema.txt", "r", encoding="utf-8") as f:
-            classification_schema = f.read().strip()
+        DETECTION_PROMPT = "\n".join(
+            prompts["Artifacts.txt"], prompts["GeographicalEnvironment.txt"]
+        )
+        CLASSIFICATION_PROMPT = "\n".join(
+            prompts["Historical.txt"], prompts["ClassificationSchema.txt"]
+        )
 
         return {
             "DETECTION_PROMPT": DETECTION_PROMPT,
-            "CLASSIFICATION_PROMPT": classification_schema,
+            "CLASSIFICATION_PROMPT": CLASSIFICATION_PROMPT,
         }
     except Exception as e:
         raise InputError(f"Error loading prompt files: {str(e)}")
@@ -89,9 +95,9 @@ def save_results(
             artifact_dir.mkdir(exist_ok=True)
 
         logging.info(f"Saving artifacts to {output_dir}")
-        
+
         for i, artifact in tqdm(enumerate(artifacts)):
-           artifact.to_pickle(saving_path=output_dir / f"artifact{i}.pickle")
+            artifact.to_pickle(saving_path=output_dir / f"artifact{i}.pickle")
 
         logging.info(f"Results saved to {output_dir}")
     except Exception as e:
