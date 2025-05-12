@@ -19,14 +19,16 @@ class Image:
     @staticmethod
     def from_workflow_result(result: Dict[str, Any], image: np.ndarray):
         def parse_detection_results(result: Dict[str, Any]) -> Dict[str, Any]:
-            return result.get("model", {}).get("parsed_output", {})    
+            return result.get("model", {}).get("parsed_output", {})
 
-        def parse_segmentation_results(result: Dict[str, Any]) -> Dict[str, Any]:   
+        def parse_segmentation_results(result: Dict[str, Any]) -> Dict[str, Any]:
             return result.get("model_1", {})
 
-        return Image(image=image,
-                     object_detection=parse_detection_results(result),
-                     object_segmentation=parse_segmentation_results(result))
+        return Image(
+            image=image,
+            object_detection=parse_detection_results(result),
+            object_segmentation=parse_segmentation_results(result),
+        )
 
 
 def check_image_integrity(img: Path) -> bool:

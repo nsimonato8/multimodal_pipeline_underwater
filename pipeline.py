@@ -115,13 +115,17 @@ def main(
 
         # 3 Process images with Roboflow workflow
         logger.info("Starting detect_and_segmentation_workflow...")
-        workflow_results: List[Image] = detect_and_segmentation_workflow(client, frames, prompts.get("DETECTION_PROMPT", ""))
+        workflow_results: List[Image] = detect_and_segmentation_workflow(
+            client, frames, prompts.get("DETECTION_PROMPT", "")
+        )
         logger.info("detect_and_segmentation_workflow executed successfully.")
 
         # 4. Select frames
         logger.info("Starting frame_selection...")
         artifacts: List[Artifact] = frame_selection(workflow_results)
-        logger.info(f"Artifacts identified: {type(artifacts)}, {len(artifacts)}, {type(artifacts[0])}")
+        logger.info(
+            f"Artifacts identified: {type(artifacts)}, {len(artifacts)}, {type(artifacts[0])}"
+        )
         logger.info("frame_selection executed successfully.")
 
         # 5. Generate frame descriptions
