@@ -131,7 +131,7 @@ def main(
 
         # 6. Save results
         logger.info("Starting save_results...")
-        save_results(artifacts, output_dir) # TODO: Change save_results according to the new updates.
+        save_results(artifacts, output_dir)
         logger.info("save_results executed successfully.")
 
         # 7. Reconstruction with WaterSplatting technique
