@@ -4,7 +4,9 @@
 
 from dataclasses import dataclass
 from typing import List, Any, Optional
+from pathlib import Path
 from image import Image
+import pickle
 
 
 @dataclass
@@ -17,6 +19,10 @@ class Artifact:
 
     def __post_init__(self):
         self.best_image = Artifact.select_best_image(self.images)
+
+    def to_pickle(self, saving_path: Path) -> None:
+         with open(saving_path, "wb") as f:
+             pickle.dump(self, f)
 
     @staticmethod
     def select_best_image(images: List[Image]) -> Optional[Image]:

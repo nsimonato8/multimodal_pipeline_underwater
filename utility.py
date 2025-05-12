@@ -1,6 +1,6 @@
 from typing import List, Dict
 from pathlib import Path
-from image import check_image_integrity
+from tqdm import tqdm
 import cv2
 import logging
 import os
@@ -8,7 +8,7 @@ import json
 import tqdm
 
 from errors import InputError, ProcessingError
-from image import Image
+from image import Image, check_image_integrity
 from artifact import Artifact
 
 
@@ -88,16 +88,12 @@ def save_results(
             artifact_dir = output_dir / artifact.name
             artifact_dir.mkdir(exist_ok=True)
 
-            # Save images
-            for img in artifact.images:
-                img_path = artifact_dir / img.path.stem
-                cv2.imwrite(str(img_path), img.image)
+        logging.info(f"Saving artifacts to {output_dir}")
+        
+        for i, artifact in tqdm(enumerate(artifacts)):
+           artifact.to_pickle(saving_path=output_dir / f"artifact{i}.pickle")
 
-            # Save metadata
-            metadata_path = artifact_dir / "metadata.json"
-            with open(metadata_path, "w", encoding="utf-8") as f:
-                json.dump(artifact.metadata, f, ensure_ascii=False, indent=4)
-
+        logging.info(f"Results saved to {output_dir}")
     except Exception as e:
         raise ProcessingError(f"Error saving results: {str(e)}")
 
