@@ -45,7 +45,7 @@ ROBOFLOW_API_URL='' # If you leave this empty, it will be assumed that this is a
 ROBOFLOW_API_KEY='YOUR_API_KEY'
 ROBOFLOW_WORKSPACE_NAME='tesimastertest' 
 ROBOFLOW_DETECTION_WORKFLOW_ID='underwateranalysis'
-ROBOFLOW_DESCRIPTION_WORKFLOW_ID='underwater-captioning'
+ROBOFLOW_CAPTIONING_WORKFLOW_ID='underwater-captioning'
 ``` 
 
 It is advised to deploy the pipeline on a local environment, as the tests were performed is similar circumstances.   
