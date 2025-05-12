@@ -42,7 +42,7 @@ def simple_underwater_correction(image):
     corrected = white_balance(corrected)
 
     # Migliora il contrasto
-    corrected = improve_contrast(corrected)
+    corrected = improve_contrast(corrected, clahe)
 
     return corrected
 
@@ -62,9 +62,8 @@ def white_balance(img):
     return result
 
 
-def improve_contrast(img):
+def improve_contrast(img, clahe):
     """Migliora il contrasto dell'immagine."""
-    global clahe
     # Converti in HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
