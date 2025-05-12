@@ -40,7 +40,11 @@ def detect_and_segmentation_workflow(
         )
 
     return list(
-        map(lambda res, img: Image.from_workflow_result(res, img), results, images)
+        map(
+            lambda res, img: Image.from_workflow_result(res, img.image, img.original),
+            results,
+            images,
+        )
     )
 
 
@@ -76,9 +80,11 @@ def generate_frame_description(
 
     result = []
     for artifact in tqdm.tqdm(artifacts):
-        print(type(artifact.best_image.image.image)) # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
+        print(
+            type(artifact.best_image.image)
+        )  # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
 
-        image = artifact.best_image.image.image
+        image = artifact.best_image.image
 
         _, buffer = cv2.imencode(".jpg", image)
 

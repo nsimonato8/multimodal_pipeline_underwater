@@ -1,4 +1,3 @@
-import cv2
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Callable
 from image import Image

@@ -32,13 +32,17 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         prompts = {name: prompt for name, prompt in zip(prompt_files, prompts)}
 
         DETECTION_PROMPT = "\n".join(
-            prompts["Artifacts.txt"], prompts["GeographicalEnvironment.txt"]
+            [prompts["Artifacts.txt"], prompts["GeographicalEnvironment.txt"]]
         )
 
-        CAPTIONING_PROMPT = prompts["CaptioningPrompt.txt"] + "\n--- Historical context ---\n" +  prompts["Historical.txt"]
+        CAPTIONING_PROMPT = (
+            prompts["CaptioningPrompt.txt"]
+            + "\n--- Historical context ---\n"
+            + prompts["Historical.txt"]
+        )
 
         CLASSIFICATION_PROMPT = "\n".join(
-            prompts["Historical.txt"], prompts["ClassificationSchema.txt"]
+            [prompts["Historical.txt"], prompts["ClassificationSchema.txt"]]
         )
 
         return {
@@ -76,7 +80,9 @@ def load_frames(input_folder: Path) -> List[Image]:
     images = []
     for path in image_paths:
         try:
-            img = Image(path=path, image=cv2.imread(str(path)))
+            img = Image(
+                path=path, image=cv2.imread(str(path)), original=cv2.imread(str(path))
+            )
             if img.image is not None:
                 images.append(img)
         except Exception as e:

@@ -12,7 +12,7 @@ setup(
         "numpy",
         "tqdm",
         "supervision",
-        "openai"
+        "openai",
     ],
     entry_points={
         "console_scripts": [
