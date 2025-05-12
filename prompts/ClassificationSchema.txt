@@ -1,1 +1,3 @@
-Compila i dati 
+Type: Artifact|Statue|Vehicle
+State: Preserved|Degraded|Very Degraded
+Epoch: Antique|Modern|Recent
