@@ -1,0 +1,7 @@
+Task:
+- Describe the given image.
+- If the image is coherent with some information found in the Historical context to, add that information to the response, otherwise just describe the image. 
+
+Requirements:
+- Use less than 200 words.
+
