@@ -1,13 +1,14 @@
 from typing import List, Dict
 from pathlib import Path
-from image import check_image_integrity
+from tqdm import tqdm
 import cv2
 import logging
 import os
 import json
 
 from errors import InputError, ProcessingError
-from image import Image
+from image import Image, check_image_integrity
+from artifact import Artifact
 
 
 def load_prompts(prompt_folder: Path) -> Dict[str, str]:
@@ -76,40 +77,16 @@ def load_frames(input_folder: Path) -> List[Image]:
 
 
 def save_results(
-    selected_frames: List[Path],
-    descriptions: Dict[str, str],
-    segmentation_results: Dict[str, Dict],
+    artifacts: List[Artifact],
     output_dir: Path,
 ) -> None:
     try:
         output_dir.mkdir(exist_ok=True, parents=True)
 
-        # Save descriptions
-        descriptions_path = output_dir / "descriptions.json"
-        with open(descriptions_path, "w", encoding="utf-8") as f:
-            json.dump(
-                {os.path.basename(k): v for k, v in descriptions.items()}, f, indent=2
-            )
-
-        # Save segmentation results
-        results_path = output_dir / "segmentation_results.json"
-        with open(results_path, "w", encoding="utf-8") as f:
-            json.dump(
-                {os.path.basename(k): v for k, v in segmentation_results.items()},
-                f,
-                indent=2,
-            )
-
-        # Copy selected frames to output directory
-        frames_dir = output_dir / "selected_frames"
-        frames_dir.mkdir(exist_ok=True)
-
-        for frame in selected_frames:
-            dest = frames_dir / frame.name
-            # Use shutil.copy2 in a real implementation to preserve metadata
-            # Here using cv2 to simplify dependencies
-            img = cv2.imread(str(frame))
-            cv2.imwrite(str(dest), img)
+        logging.info(f"Saving artifacts to {output_dir}")
+        
+       for i, artifact in tqdm(enumerate(artifacts)):
+           artifact.to_pickle(saving_path=output_dir / f"artifact{i}.pickle")
 
         logging.info(f"Results saved to {output_dir}")
 
