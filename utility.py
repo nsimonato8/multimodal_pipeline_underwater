@@ -17,6 +17,7 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         "Historical.txt",
         "GeographicalEnvironment.txt",
         "ClassificationSchema.txt",
+        "CaptioningPrompt.txt",
     ]
 
     if not all(list(map(lambda x: os.path.exists(prompt_folder / x), prompt_files))):
@@ -33,6 +34,9 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         DETECTION_PROMPT = "\n".join(
             prompts["Artifacts.txt"], prompts["GeographicalEnvironment.txt"]
         )
+
+        CAPTIONING_PROMPT = prompts["CaptioningPrompt.txt"] + "\n--- Historical context ---\n" +  prompts["Historical.txt"]
+
         CLASSIFICATION_PROMPT = "\n".join(
             prompts["Historical.txt"], prompts["ClassificationSchema.txt"]
         )
@@ -40,6 +44,7 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         return {
             "DETECTION_PROMPT": DETECTION_PROMPT,
             "CLASSIFICATION_PROMPT": CLASSIFICATION_PROMPT,
+            "CAPTIONING_PROMPT": CAPTIONING_PROMPT,
         }
     except Exception as e:
         raise InputError(f"Error loading prompt files: {str(e)}")
