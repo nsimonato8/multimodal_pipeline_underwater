@@ -80,7 +80,7 @@ def generate_frame_description(
 
         image = artifact.best_image.image.image
 
-        _, buffer = cv2.imencode(".png", image)
+        _, buffer = cv2.imencode(".jpg", image)
 
         base64_image = base64.b64encode(buffer).decode("utf-8")
 
@@ -93,7 +93,7 @@ def generate_frame_description(
                         {"type": "input_text", "text": prompt},
                         {
                             "type": "input_image",
-                            "image_url": f"data:image/png;base64,{base64_image}",
+                            "image_url": f"data:image/jpg;base64,{base64_image}",
                         },
                     ],
                 }
