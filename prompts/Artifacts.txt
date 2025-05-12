@@ -1,6 +1,6 @@
-Categoria oggetti: Strumenti
+Object category: Instruments
 
-Direttive:
-- Identifica e localizza oggetti di possibile origine antropica.  
-- Considera sia strumenti interi che frammenti riconoscibili.  
-- Escludi la presenza di pesci.  
+Directives:
+- Identifies and locates objects of possible man-made origin.
+- Consider both whole tools and recognizable fragments.
+- Exclude the presence of fish.
