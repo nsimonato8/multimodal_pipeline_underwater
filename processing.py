@@ -55,14 +55,15 @@ def frame_selection(images: List[Image]) -> List[Artifact]:
 def generate_frame_description(client, artifacts: List[Artifact]) -> List[Artifact]:
     # This function adds the caption to the Artifact object.
     def parse_caption(result: Dict[str, Any]) -> str:
+        print(result)
         return result.get("model",{}).get("raw_output", "")
         
     result = []
     for artifact in tqdm.tqdm(artifacts):
-        print(type(artifact.best_image.image))
-        result += parse_caption(client.run_workflow(
+        print(type(artifact.best_image.image.image))
+        result.append(parse_caption(client.run_workflow(
             workspace_name=os.getenv("ROBOFLOW_WORKSPACE_NAME", ""),
-            workflow_id=os.getenv("ROBOFLOW_DESCRIPTION_WORKFLOW_ID", ""),
-            images={'image': artifact.best_image.image}, # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
-        ))
+            workflow_id=os.getenv("ROBOFLOW_CAPTIONING_WORKFLOW_ID", ""),
+            images={'image': artifact.best_image.image.image}, # TODO: Implement a logic for the selection of the best image among the pictures of the artifact.
+        )[0]))
     return result
