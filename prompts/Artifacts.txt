@@ -1,6 +1,5 @@
-Object category: Instruments
+Target: Tools, Rulers, Tubes.
 
 Directives:
-- Identifies and locates objects of possible man-made origin.
+- Identifies and locates tools of possible man-made origin.
 - Consider both whole tools and recognizable fragments.
-- Exclude the presence of fish.
