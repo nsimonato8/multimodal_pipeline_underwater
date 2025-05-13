@@ -177,3 +177,4 @@ cython_debug/
 
 output_test.*
 tests/
+test.py
