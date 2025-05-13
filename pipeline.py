@@ -124,18 +124,19 @@ def main(
         logger.info("Starting frame_selection...")
         artifacts: List[Artifact] = frame_selection(workflow_results)
         logger.info(
-            f"Artifacts identified: {type(artifacts)}, {len(artifacts)}, {type(artifacts[0])}"
+            f"Artifacts identified: {type(artifacts)}, {len(artifacts)}"
         )
         logger.info("frame_selection executed successfully.")
 
         # 5. Generate frame descriptions
         logger.info("Starting generate_frame_description...")
-        artifacts: List[Artifact] = generate_frame_description(client, artifacts)
+        artifacts: List[Artifact] = generate_frame_description(client, artifacts, prompt=prompts.get("CAPTIONING_PROMPT", ""))
         logger.info("generate_frame_description executed successfully.")
 
         # 6. Save results
         logger.info("Starting save_results...")
-        save_results(artifacts, output_dir)
+        logger.info([repr(artifact) for artifact in artifacts])
+        save_results(artifacts, output_dir, prompt=prompts.get("CLASSIFICATION_PROMPT", ""))
         logger.info("save_results executed successfully.")
 
         # 7. Reconstruction with WaterSplatting technique

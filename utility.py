@@ -21,7 +21,7 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
     ]
 
     if not all(list(map(lambda x: os.path.exists(prompt_folder / x), prompt_files))):
-        raise InputError(f"Expected 3 prompt files in {prompt_folder}.")
+        raise InputError(f"Expected {len(prompt_files)} prompt files in {prompt_folder}.")
 
     try:
         prompts = []
@@ -31,10 +31,7 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
 
         prompts = {name: prompt for name, prompt in zip(prompt_files, prompts)}
 
-        DETECTION_PROMPT = "\n".join(
-            [prompts["Artifacts.txt"], prompts["GeographicalEnvironment.txt"]]
-        )
-
+        DETECTION_PROMPT = prompts["Artifacts.txt"]
         CAPTIONING_PROMPT = (
             prompts["CaptioningPrompt.txt"]
             + "\n--- Historical context ---\n"
@@ -70,7 +67,6 @@ def get_image_paths(input_path: Path) -> List[Path]:
     # Sort images by name to maintain sequence
     image_paths.sort()
 
-    logging.info(f"Found {len(image_paths)} images in {input_path}")
     return image_paths
 
 
