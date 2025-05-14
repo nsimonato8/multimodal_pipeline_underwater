@@ -1,0 +1,7 @@
+# For now, the models employed for the OD/SEG task support only prompts of small size. In the future, more complex prompts such as this one will be hopefully be usable for an improved experienced.
+
+Target: Tools, Rulers, Tubes.
+
+Directives:
+- Identifies and locates tools of possible man-made origin.
+- Consider both whole tools and recognizable fragments.
