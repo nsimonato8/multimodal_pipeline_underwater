@@ -32,19 +32,15 @@ def load_prompts(prompt_folder: Path) -> Dict[str, str]:
         prompts = {name: prompt for name, prompt in zip(prompt_files, prompts)}
 
         DETECTION_PROMPT = prompts["Artifacts.txt"]
-        CAPTIONING_PROMPT = (
-            prompts["CaptioningPrompt.txt"]
-            + "\n--- Historical context ---\n"
-            + prompts["Historical.txt"]
-        )
-
-        CLASSIFICATION_PROMPT = "\n".join(
-            [prompts["Historical.txt"], prompts["ClassificationSchema.txt"]]
-        )
+        CAPTIONING_PROMPT = '\n'.join([
+            prompts["CaptioningPrompt.txt"],
+            "--- Historical context ---",
+            prompts["Historical.txt"],
+            prompts["ClassificationSchema.txt"]
+        ])
 
         return {
             "DETECTION_PROMPT": DETECTION_PROMPT,
-            "CLASSIFICATION_PROMPT": CLASSIFICATION_PROMPT,
             "CAPTIONING_PROMPT": CAPTIONING_PROMPT,
         }
     except Exception as e:
