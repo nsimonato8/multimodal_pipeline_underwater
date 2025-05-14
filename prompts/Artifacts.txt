@@ -1,5 +1,1 @@
-Target: Tools, Rulers, Tubes.
-
-Directives:
-- Identifies and locates tools of possible man-made origin.
-- Consider both whole tools and recognizable fragments.
+Rulers
