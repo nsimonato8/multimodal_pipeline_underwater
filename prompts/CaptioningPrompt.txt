@@ -1,7 +1,12 @@
 Task:
 - Describe the given image.
 - If the image is coherent with some information found in the Historical context to, add that information to the response, otherwise just describe the image. 
+- Return the result according to the Classification Schema defined below.
+
+Context:
+- The Classification Schema defines the output format.
+- The fields are defined as "NameField: {{Value}}".
+- Some fields can be filled by one of some pre-determined values. In that case, they are specified as: "NameField: {{Value1|Value2|Value3}}".
 
 Requirements:
-- Use less than 200 words.
-
+- Use less than 200 words for the caption.
