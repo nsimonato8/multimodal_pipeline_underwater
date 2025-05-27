@@ -1,4 +1,4 @@
-# For now, the models employed for the OD/SEG task support only prompts of small size. In the future, more complex prompts such as this one will be hopefully be usable for an improved experienced.
+# For now, the models employed for the OD/SEG task support only prompts of small size, due to the use of Florence-2. In future versions, the adoption of other Large Multimodal Models (such as the proprietary GPT-4.1) will allow to use more complex prompts such as this one.
 
 Target: Tools, Rulers, Tubes.
 
