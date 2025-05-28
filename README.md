@@ -46,7 +46,7 @@ Our pipeline consists of six main stages:
 5. **3D Reconstruction**: Gaussian Splatting-based 3D model generation
 6. **Archive**: Structured storage of all processed data and models
 
-<img src="_images/preprocessingSD.png" alt="Preprocessing Pipeline" width="400" >
+<img src="_images/preprocessingSD.png" alt="Preprocessing Pipeline" width="500" >
 *Image preprocessing pipeline showing CLAHE lightness equalization and saturation improvement*
 
 ### Technical Approach
@@ -66,7 +66,7 @@ Our pipeline consists of six main stages:
 - **Real-time Rendering**: Interactive 3D models supporting rotation, zoom, and lighting variations
 - **Reduced Image Requirements**: Fewer images needed compared to traditional photogrammetry
 ComparisonPreprocessing3
-<img src="_images/ComparisonPreprocessing3.png" alt="Preprocessing Pipeline" width="400" >
+<img src="_images/ComparisonPreprocessing3.jpg" alt="Preprocessing Pipeline" width="500" >
 *Examples of underwater artifact detection and processing across different archaeological sites*
 
 ## Installation
