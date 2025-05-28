@@ -29,7 +29,7 @@ This work presents a comprehensive pipeline for the detection and three-dimensio
 - **Automated Pipeline**: End-to-end automated workflow from image acquisition to 3D model generation and archival
 - **Real-world Validation**: Successfully applied to the SS Main steamship wreck (1892) in Porto Pim Bay, Azores
 
-![Pipeline Overview](images/pipeline_workflow.png)
+![Pipeline Overview](_images/pipeline_workflow.png)
 *Complete pipeline workflow from data acquisition to final 3D reconstruction and archival*
 
 ## Methodology
@@ -45,7 +45,7 @@ Our pipeline consists of six main stages:
 5. **3D Reconstruction**: Gaussian Splatting-based 3D model generation
 6. **Archive**: Structured storage of all processed data and models
 
-![Preprocessing Example](images/preprocessing_comparison.png)
+![Preprocessing Example](_images/preprocessing_comparison.png)
 *Image preprocessing pipeline showing CLAHE lightness equalization and saturation improvement*
 
 ### Technical Approach
@@ -65,7 +65,7 @@ Our pipeline consists of six main stages:
 - **Real-time Rendering**: Interactive 3D models supporting rotation, zoom, and lighting variations
 - **Reduced Image Requirements**: Fewer images needed compared to traditional photogrammetry
 
-![Results Comparison](images/artifact_examples.png)
+![Results Comparison](_images/artifact_examples.png)
 *Examples of underwater artifact detection and processing across different archaeological sites*
 
 ## Installation
