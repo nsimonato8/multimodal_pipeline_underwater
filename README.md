@@ -184,7 +184,7 @@ output/
 └── classification_results.json  # Structured artifact data
 ```
 
-## 🔬 Technical Specifications
+## Technical Specifications
 
 ### Supported Input Formats
 - **Images**: JPEG, PNG, TIFF
@@ -214,7 +214,24 @@ cd multimodal_pipeline_underwater
 pip install -e ".[dev]"
 pre-commit install
 ```
+## Acknowledgments
 
+- **CHAM - Centro de Humanidades** for providing the SS Main wreck images
+- **Cristóvão Fonseca (CHAM)** for additional material from the Arade site
+- **José Paulo Costa and STAP** for promoting this research
+- **DMP - Archaeological Studies, Câmara Municipal de Portimão** for guidance and support
+
+## License
+
+This project is licensed under the MIT License.
+
+## Related Work
+
+- [WaterSplatting: Fast Underwater 3D Scene Reconstruction](https://github.com/water-splatting/water-splatting)
+- [Florence-2: Advancing Vision-Language Understanding](https://huggingface.co/microsoft/Florence-2-large)
+- [SAM2: Segment Anything in Images and Videos](https://github.com/facebookresearch/segment-anything-2)
+
+---
 ## Citation
 
 If you use this work in your research, please cite:
@@ -227,26 +244,6 @@ If you use this work in your research, please cite:
   year={2024}
 }
 ```
-
-## Acknowledgments
-
-- **CHAM - Centro de Humanidades** for providing the SS Main wreck images
-- **Cristóvão Fonseca (CHAM)** for additional material from the Arade site
-- **José Paulo Costa and STAP** for promoting this research
-- **DMP - Archaeological Studies, Câmara Municipal de Portimão** for guidance and support
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Related Work
-
-- [WaterSplatting: Fast Underwater 3D Scene Reconstruction](https://github.com/water-splatting/water-splatting)
-- [Florence-2: Advancing Vision-Language Understanding](https://huggingface.co/microsoft/Florence-2-large)
-- [SAM2: Segment Anything in Images and Videos](https://github.com/facebookresearch/segment-anything-2)
-
----
-
 <p align="center">
   <strong>🌊 Advancing Underwater Archaeology through AI and 3D Vision 🏛️</strong>
 </p>
