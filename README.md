@@ -29,7 +29,7 @@ This work presents a comprehensive pipeline for the detection and three-dimensio
 - **Automated Pipeline**: End-to-end automated workflow from image acquisition to 3D model generation and archival
 - **Real-world Validation**: Successfully applied to the SS Main steamship wreck (1892) in Porto Pim Bay, Azores
 
-<img src="_images/PipelineUnderWater.png" alt="Pipeline Overview" width="400" height="300">
+<img src="_images/PipelineUnderWater.png" alt="Pipeline Overview" width="600" >
 
 *Complete pipeline workflow from data acquisition to final 3D reconstruction and archival*
 
