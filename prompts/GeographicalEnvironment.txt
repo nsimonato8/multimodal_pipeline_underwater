@@ -1,14 +1,11 @@
 Geographical area:  
-- Bay sheltered by Monte Queimado and Monte da Guia.  
-- Southwestern coast of the island of Faial, Azores.  
+- ** Insert here general information about the site. ** 
 
 Average depth:  
-- Between 8 and 10 meters.  
+- ** Insert here the estimated depth of the site. **
 
 Water conditions:  
-- Winter temperature: 16-18°C.  
-- Summer temperature: 22-25°C.  
-- High transparency with underwater visibility up to 15 meters.  
+- ** Insert here the information about the water conditions, which may affect the classifiaction task. **
 
 Marine characteristics:  
 - Presence of schools of fish.  

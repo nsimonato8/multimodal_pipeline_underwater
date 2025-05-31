@@ -5,7 +5,8 @@ Task:
 
 Context:
 - The Classification Schema defines the output format.
-- ** Insert here specific instructions for the captioning task. **
+- The fields are defined as "NameField: {{Value}}".
+- Some fields can be filled by one of some pre-determined values. In that case, they are specified as: "NameField: {{Value1|Value2|Value3}}".
 
 Requirements:
-- ** Insert here the requirements for the caption. **
+- Use less than 200 words for the caption.
