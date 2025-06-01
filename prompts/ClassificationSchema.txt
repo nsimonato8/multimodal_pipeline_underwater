@@ -1,6 +1,62 @@
-Classification Schema:
-- Type: {{Artifact|Statue|Vehicle}}
-- State: {{Preserved|Degraded|Very Degraded}}
-- Epoch: {{Antique|Modern|Recent}}
-- Location: {{Location}}
-- Caption: {{Caption}}
+{
+  "artifact_id": "{UNIQUE_IDENTIFIER: alphanumeric string uniquely identifying this artifact within the collection}",
+  "classification": {
+    "primary_category": "{PRIMARY_FUNCTIONAL_CATEGORY: main artifact type such as 'Personal Effects', 'Ship Hardware', 'Cargo', 'Navigation Equipment', 'Weaponry', 'Galley/Kitchen', 'Tools', 'Structural Elements'}",
+    "secondary_category": "{SECONDARY_SUBCATEGORY: more specific classification within primary category, e.g., 'Buttons' under 'Personal Effects' or 'Nails' under 'Ship Hardware'}",
+    "object_type": "{SPECIFIC_OBJECT_NAME: precise identification of the artifact, e.g., 'Brass Button', 'Iron Nail', 'Ceramic Plate', 'Glass Bottle'}",
+    "confidence_level": "{CLASSIFICATION_CONFIDENCE: numerical value 0.0-1.0 indicating certainty of classification based on visual evidence}"
+  },
+  "physical_description": {
+    "material": {
+      "primary_material": "{PRIMARY_MATERIAL: dominant material observed, e.g., 'Iron', 'Brass', 'Ceramic', 'Glass', 'Wood', 'Lead', 'Copper'}",
+      "secondary_materials": ["{SECONDARY_MATERIAL_LIST: array of additional materials visible, each as separate string}"],
+      "material_condition": "{MATERIAL_STATE: current preservation state such as 'Heavily Corroded', 'Moderately Corroded', 'Well Preserved', 'Fragmentary', 'Intact'}"
+    },
+    "dimensions": {
+      "length_mm": "{LENGTH_ESTIMATE: estimated maximum length in millimeters based on visual scale references}",
+      "width_mm": "{WIDTH_ESTIMATE: estimated maximum width in millimeters based on visual scale references}",
+      "thickness_mm": "{THICKNESS_ESTIMATE: estimated thickness/height in millimeters based on visual scale references}",
+      "dimension_confidence": "{DIMENSION_CONFIDENCE: confidence level 0.0-1.0 for size estimates based on available scale references}"
+    },
+    "shape": "{GEOMETRIC_DESCRIPTION: overall shape description using standard terms like 'Cylindrical', 'Rectangular', 'Circular', 'Irregular', 'Elongated', 'Flat'}",
+    "color": "{VISIBLE_COLOR: current color as observed, accounting for corrosion/degradation, e.g., 'Dark Brown', 'Green Patina', 'Rust Red', 'Black'}",
+    "surface_features": ["{SURFACE_CHARACTERISTICS: array of observable surface details such as 'Decorative Pattern', 'Text/Markings', 'Smooth Finish', 'Rough Texture', 'Concretion', 'Marine Growth'}"]
+  },
+  "condition_assessment": {
+    "preservation_state": "{OVERALL_CONDITION: general preservation using standard terms like 'Excellent', 'Good', 'Fair', 'Poor', 'Fragmentary'}",
+    "visible_damage": ["{DAMAGE_TYPES: array of observable damage such as 'Corrosion', 'Fragmentation', 'Deformation', 'Missing Parts', 'Surface Wear', 'Concretion Buildup'}"],
+    "completeness": "{COMPLETENESS_PERCENTAGE: estimated percentage of original artifact remaining, expressed as integer 0-100}",
+    "stability": "{STRUCTURAL_INTEGRITY: assessment of current structural condition such as 'Stable', 'Fragile', 'Requires Support', 'Deteriorating'}"
+  },
+  "diagnostic_features": {
+    "identifying_marks": ["{DISTINCTIVE_MARKINGS: array of unique identifiers visible such as 'Maker's Mark', 'Serial Number', 'Decorative Motif', 'Tool Marks', 'Repair Evidence'}"],
+    "technological_indicators": ["{MANUFACTURING_EVIDENCE: array of production method indicators such as 'Hand Forged', 'Cast', 'Machine Made', 'Riveted Construction', 'Soldered Joints'}"],
+    "stylistic_elements": ["{STYLE_CHARACTERISTICS: array of design features that may indicate period/origin such as 'Neoclassical Design', 'Maritime Rope Pattern', 'Geometric Border', 'Functional Simplicity'}"]
+  },
+  "functional_analysis": {
+    "presumed_function": "{PRIMARY_USE: inferred original purpose based on form and context, e.g., 'Fastening', 'Storage', 'Navigation', 'Personal Adornment', 'Food Preparation'}",
+    "use_wear_evidence": ["{WEAR_PATTERNS: array of usage indicators visible such as 'Edge Wear', 'Polish from Handling', 'Impact Marks', 'Scratches', 'Stress Fractures'}"],
+    "modification_evidence": ["{ALTERATIONS: array of post-manufacture changes such as 'Repair Attempts', 'Intentional Modification', 'Reuse Evidence', 'Sharpening Marks'}"]
+  },
+  "dating_indicators": {
+    "stylistic_dating_clues": ["{TEMPORAL_STYLE_MARKERS: array of design elements that suggest time period such as 'Victorian Era Button Style', '18th Century Glass Technique', 'Industrial Revolution Manufacturing'}"],
+    "technological_dating_clues": ["{TECHNOLOGICAL_MARKERS: array of manufacturing techniques that indicate time period such as 'Pre-Industrial Hand Work', 'Early Machine Threading', 'Mass Production Indicators'}"],
+    "comparative_dating": "{COMPARATIVE_REFERENCES: similar artifacts or types that provide chronological context, e.g., 'Similar to 18th century merchant vessel hardware', 'Consistent with Colonial period ceramics'}"
+  },
+  "image_metadata": {
+    "image_quality": "{IMAGE_ASSESSMENT: quality rating for classification purposes such as 'Excellent Detail', 'Good Resolution', 'Adequate for Classification', 'Limited Detail'}",
+    "visible_perspectives": ["{VIEWING_ANGLES: array of perspectives shown such as 'Frontal View', 'Side Profile', 'Reverse Side', 'Detail Close-up', 'Scale Reference Included'}"],
+    "lighting_conditions": "{ILLUMINATION_QUALITY: lighting assessment such as 'Well Lit', 'Even Illumination', 'Some Shadows', 'Poor Lighting', 'Raking Light Detail'}",
+    "scale_references": ["{SCALE_INDICATORS: array of size references visible such as 'Ruler Present', 'Coin for Scale', 'Grid Background', 'Known Object for Scale', 'No Scale Reference'}"]
+  },
+  "uncertainty_flags": {
+    "ambiguous_features": ["{UNCLEAR_CHARACTERISTICS: array of features difficult to determine from image such as 'Material Composition', 'Internal Structure', 'Complete Dimensions', 'Original Color'}"],
+    "alternative_classifications": ["{POSSIBLE_ALTERNATIVES: array of other reasonable classifications if primary is uncertain, each as object with 'type' and 'confidence' fields}"],
+    "requires_further_analysis": ["{ADDITIONAL_NEEDS: array of analyses that would improve classification such as 'X-ray Imaging', 'Material Analysis', 'Size Measurement', 'Cleaning Required'}"]
+  },
+  "contextual_notes": {
+    "shipwreck_context": "{SITE_RELEVANCE: how this artifact relates to the specific shipwreck context and historical period}",
+    "comparative_significance": "{ARCHAEOLOGICAL_IMPORTANCE: significance within broader maritime archaeological record and similar sites}",
+    "research_potential": "{SCHOLARLY_VALUE: potential contribution to maritime history, technology studies, or cultural understanding}"
+  }
+}
